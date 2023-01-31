@@ -1,5 +1,6 @@
 import React from 'react';
 import Route from './Routes';
+import './assets/scss/themes.scss';
 import fakeBackend from "./helpers/AuthType/fakeBackend";
 fakeBackend();
 
