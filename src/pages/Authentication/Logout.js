@@ -1,9 +1,33 @@
-import React from 'react'
+import PropTypes from "prop-types";
+import React, { useEffect } from "react";
+import { Navigate } from "react-router-dom";
 
-const Logout = () => {
-  return (
-    <div>Logout</div>
-  )
-}
+import { logoutUser } from "../../store/actions";
 
-export default Logout
+//redux
+import { useSelector, useDispatch } from "react-redux";
+import withRouter from "../../Components/Common/withRouter";
+
+const Logout = (props) => {
+  const dispatch = useDispatch();
+
+  const { isUserLogout } = useSelector((state) => ({
+    isUserLogout: state.Login.isUserLogout,
+  }));
+
+  useEffect(() => {
+    dispatch(logoutUser());
+  }, [dispatch]);
+
+  if (isUserLogout) {
+    return <Navigate to="/login" />;
+  }
+
+  return <></>;
+};
+
+Logout.propTypes = {
+  history: PropTypes.object,
+};
+
+export default withRouter(Logout);

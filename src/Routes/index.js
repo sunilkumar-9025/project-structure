@@ -17,7 +17,7 @@ const Index = () => {
           {publicRoutes.map((route, idx) => (
             <Route
               path={route.path}
-              element={route.component}
+              element={<NonAuthLayout>{route.component}</NonAuthLayout>}
               key={idx}
               exact={true}
             />
@@ -28,7 +28,11 @@ const Index = () => {
           {authProtectedRoutes.map((route, idx) => (
             <Route
               path={route.path}
-              element={<AuthProtected>{route.component}</AuthProtected>}
+              element={
+                <AuthProtected>
+                  <VerticalLayout>{route.component}</VerticalLayout>
+                </AuthProtected>
+              }
               key={idx}
               exact={true}
             />

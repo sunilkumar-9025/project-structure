@@ -27,15 +27,15 @@ const AuthProtected = (props) => {
   return <>{props.children}</>;
 };
 
-// const AccessRoute = ({ component: Component, ...rest }) => {
-//   return (
-//     <Route
-//       {...rest}
-//       render={props => {
-//         return (<> <Component {...props} /> </>);
-//       }}
-//     />
-//   );
-// };
+const AccessRoute = ({ component: Component, ...rest }) => {
+  return (
+    <Route
+      {...rest}
+      render={props => {
+        return (<> <Component {...props} /> </>);
+      }}
+    />
+  );
+};
 
-export { AuthProtected};
+export { AuthProtected, AccessRoute};

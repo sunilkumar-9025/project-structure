@@ -35,3 +35,17 @@ export const postJwtRegister = (url, data) => {
     throw message;
   });
 };
+
+export const postFakeForgetPwd = (data) =>
+  api.create(url.POST_FAKE_PASSWORD_FORGET, data);
+
+export const postJwtForgetPwd = (data) =>
+  api.create(url.POST_FAKE_JWT_PASSWORD_FORGET, data);
+
+
+  export const postFakeProfile = (data) =>
+  api.update(url.POST_EDIT_PROFILE + "/" + data.idx, data);
+
+
+  export const postJwtProfile = (data) =>
+  api.create(url.POST_EDIT_JWT_PROFILE, data);
