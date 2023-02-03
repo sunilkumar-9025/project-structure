@@ -4,7 +4,7 @@ const Index = () => {
   return (
     <React.Fragment>
       <div className="page-content">
-        <Container fluid>Dashboard Components</Container>
+        <Container fluid>Reports Components</Container>
       </div>
     </React.Fragment>
   );

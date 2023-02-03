@@ -79,7 +79,7 @@ const Navdata = () => {
       id: "projects",
       label: "Projects",
       icon: "bx bx-layer",
-      link: "/projects",
+      link: "/#",
       click: function (e) {
         e.preventDefault();
         setIsProjects(!isProjects);
@@ -91,19 +91,19 @@ const Navdata = () => {
         {
           id: "newProject",
           label: "New Project",
-          link: "/projects-newProject",
+          link: "/newProject",
           parentId: "projects",
         },
         {
           id: "existingProjects",
           label: "Existing Projects",
-          link: "/projects-existingProjects",
+          link: "/existingProjects",
           parentId: "projects",
         },
         {
           id: "drafts",
           label: "Drafts",
-          link: "/projects-drafts",
+          link: "/drafts",
           parentId: "projects",
         },
       ],

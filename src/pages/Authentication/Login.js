@@ -26,9 +26,9 @@ import withRouter from "../../Components/Common/withRouter";
 
 const Login = (props) => {
   const dispatch = useDispatch();
-  // const { user } = useSelector((state) => {
-  //   return { user: state.Account.user };
-  // });
+  const { user } = useSelector((state) => {
+    return { user: state.Account.user };
+  });
   const [userLogin, setUserLogin] = useState([]);
   const validation = useFormik({
     enableReinitialize: true,

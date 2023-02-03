@@ -52,12 +52,12 @@
 
       &.active {
         // color: $vertical-menu-item-active-color;
-        color: #66e7d6;
+        color: #66e7d6 !important;
       }
 
       &:hover {
         // color: $vertical-menu-item-hover-color;
-        color: #66e7d6;
+        color: #66e7d6 !important;
       }
 
       i {

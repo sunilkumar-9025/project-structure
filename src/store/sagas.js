@@ -9,6 +9,9 @@ import AccountSaga from "./auth/register/saga";
 import ForgetSaga from "./auth/forgetpwd/saga";
 import ProfileSaga from "./auth/profile/saga";
 
+//project
+import ProjectSaga from "./projects/newProject/saga";
+
 export default function* rootSaga() {
   yield all([
     fork(AuthSaga),
@@ -16,5 +19,6 @@ export default function* rootSaga() {
     fork(ForgetSaga),
     fork(ProfileSaga),
     fork(LayoutSaga),
+    fork(ProjectSaga),
   ]);
 }
