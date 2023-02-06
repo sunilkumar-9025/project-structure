@@ -8,7 +8,7 @@ const SelectField = (props) => {
     <Field component={Select} id={name} name={name} {...rest}>
       {({ form, field }) => {
         return (
-          <FormGroup isinvalid={form.errors[name] && form.touched[name]}>
+          <FormGroup>
             <Label htmlFor={name}>{label}</Label>
             <Select
               value={
@@ -24,7 +24,6 @@ const SelectField = (props) => {
               {...rest}
               {...form}
             />
-            <FormFeedback>{form.errors[name]}</FormFeedback>
           </FormGroup>
         );
       }}

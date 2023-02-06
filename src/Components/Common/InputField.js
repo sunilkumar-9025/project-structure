@@ -6,10 +6,9 @@ const InputField = (props) => {
   const { label, name, ...rest } = props;
   return (
     <Field name={name}>
-      {({ field, form }) => {
-        console.log(form)
+      {({ field }) => {
         return (
-          <FormGroup isinvalid={form.errors[name] && form.touched[name]}>
+          <FormGroup>
             <Label htmlFor={name}>{label}</Label>
             <Input id={name} {...rest} {...field} />
           </FormGroup>

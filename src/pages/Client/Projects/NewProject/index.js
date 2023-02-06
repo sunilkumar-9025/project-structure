@@ -1,22 +1,11 @@
 import React, { useEffect } from "react";
-import {
-  Row,
-  Col,
-  CardBody,
-  Card,
-  Alert,
-  Container,
-  Input,
-  Label,
-  FormFeedback,
-  Button,
-} from "reactstrap";
+import { Row, Col, Container, Button, Alert } from "reactstrap";
 
 import * as Yup from "yup";
 import ErrorText from "../../../../Components/Common/ErrorText";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, ErrorMessage } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import InputField from "../../../../Components/Common/InputField";
 import SelectField from "../../../../Components/Common/SelectField";
 
@@ -25,6 +14,7 @@ import { newProject, resetNewProjectFlag } from "../../../../store/actions";
 import { ProjectOptions } from "../../../../Components/constants/projects";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ArrayInput from "../../../../Components/Common/ArrayInput";
 
 const Index = () => {
   const history = useNavigate();
@@ -33,7 +23,7 @@ const Index = () => {
   const initialValues = {
     projectName: "",
     projectType: "",
-    clientPOC: [""],
+    clientPOC: [''],
   };
   const validationSchema = Yup.object({
     projectName: Yup.string().required("Please Enter Your Project Name"),
@@ -44,6 +34,7 @@ const Index = () => {
     //   .email("Plse Enter Valid Email"),
   });
   const onSubmit = (values) => {
+    console.log(values)
     dispatch(newProject(values));
   };
 
@@ -89,18 +80,13 @@ const Index = () => {
                         })}
                         <ToastContainer autoClose={2000} limit={1} />
                         <Alert color="success">
-                          Register User Successfully and Your Redirect To Login
-                          Page...
+                          Project created successfully
                         </Alert>
                       </>
                     ) : null}
                     {error && error ? (
                       <Alert color="danger">
-                        <div>
-                          {/* {registrationError} */}
-                          Email has been Register Before, Please Use Another
-                          Email Address...
-                        </div>
+                        <div>Project with that name already exist</div>
                       </Alert>
                     ) : null}
                     <div className="mb-3">
@@ -113,9 +99,18 @@ const Index = () => {
                         label="Project Type"
                         options={ProjectOptions}
                       />
-                      <ErrorMessage name="projectName" component={ErrorText} />
+                      <ErrorMessage name="projectType" component={ErrorText} />
                     </div>
-                    <Button type='submit' color="primary">save</Button>
+                    <div className="mb-3">
+                      <ArrayInput
+                        name="clientPOC"
+                        label="Client POC"
+                      ></ArrayInput>
+                    </div>
+
+                    <Button type="submit" color="primary">
+                      save
+                    </Button>
                   </Form>
                 )}
               </Formik>
