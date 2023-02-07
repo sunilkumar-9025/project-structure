@@ -15,6 +15,7 @@ import Formulation from "./projects/formulation/reducer";
 import Testing from "./projects/testing/reducer";
 import Manufacturing from "./projects/manufacturing/reducer";
 import Packaging from "./projects/packaging/reducer";
+import Launch from "./projects/launch/reducer";
 
 const rootReducer = combineReducers({
   Layout,
@@ -26,7 +27,8 @@ const rootReducer = combineReducers({
   Formulation,
   Testing,
   Manufacturing,
-  Packaging
+  Packaging,
+  Launch
 });
 
 export default rootReducer;

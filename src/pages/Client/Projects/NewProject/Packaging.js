@@ -17,6 +17,7 @@ import "react-toastify/dist/ReactToastify.css";
 import SelectField from "../../../../Components/Common/SelectField";
 import TextareaField from "../../../../Components/Common/TextareaField";
 import FileUpload from "../../../../Components/Common/FileUpload";
+import PreviewCardHeader from '../../../../Components/Common/PreviewCardHeader'
 
 const Packaging = () => {
   const history = useNavigate();
@@ -65,7 +66,8 @@ const Packaging = () => {
       <div className="page-content">
         <Container fluid>
           <Row>
-            <Col lg={6}>
+          <PreviewCardHeader title="Packaging" />
+            <Col lg={4} className='mt-3'>
               <Formik
                 initialValues={initialValues}
                 onSubmit={onSubmit}
@@ -100,7 +102,7 @@ const Packaging = () => {
                         <Col xxl={12} className="mb-3">
                           <RadioField
                             name="packaging"
-                            label="Packaging"
+                            label=""
                             options={PackagingRadioOption}
                           />
                           <ErrorMessage

@@ -6,14 +6,21 @@ import { Formik, Form, ErrorMessage } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import RadioField from "../../../../Components/Common/RadioField";
+import PreviewCardHeader from '../../../../Components/Common/PreviewCardHeader'
 import {
   resetManufacturingFlag,
   manufacturing,
 } from "../../../../store/actions";
-import { FormulationOptions, manufacturingRadioOption, QuantityOptions } from "../../../../Components/constants/projects";
+import {
+  FormulationOptions,
+  manufacturingRadioOption,
+  procurementCheckboxOption,
+  QuantityOptions,
+} from "../../../../Components/constants/projects";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SelectField from "../../../../Components/Common/SelectField";
+import CheckboxField from "../../../../Components/Common/CheckboxField";
 
 const Manufacturing = () => {
   const history = useNavigate();
@@ -23,11 +30,13 @@ const Manufacturing = () => {
     manufacturing: "",
     formulation: "",
     quantity: "",
+    procurement: [],
   };
   const validationSchema = Yup.object({
     manufacturing: Yup.string().required("Please Select Formulation"),
     formulation: Yup.string().required("Please select formulation"),
     quantity: Yup.string().required("Please select quantity"),
+    procurement: Yup.array().min(1, "Please Select procurement"),
   });
   const onSubmit = (values) => {
     dispatch(manufacturing(values));
@@ -56,7 +65,8 @@ const Manufacturing = () => {
       <div className="page-content">
         <Container fluid>
           <Row>
-            <Col lg={4}>
+          <PreviewCardHeader title="Manufacturing" />
+            <Col lg={4} className='mt-3'>
               <Formik
                 initialValues={initialValues}
                 onSubmit={onSubmit}
@@ -91,7 +101,7 @@ const Manufacturing = () => {
                         <Col xxl={12} className="mb-3">
                           <RadioField
                             name="manufacturing"
-                            label="Manufacturing"
+                            label=""
                             options={manufacturingRadioOption}
                           />
                           <ErrorMessage
@@ -116,13 +126,18 @@ const Manufacturing = () => {
                             label="Quantity"
                             options={QuantityOptions}
                           />
-                          <ErrorMessage
-                            name="quantity"
-                            component={ErrorText}
-                          />
+                          <ErrorMessage name="quantity" component={ErrorText} />
                         </div>
                       </Row>
-                      <Row></Row>
+                      <Row>
+                        <Col>
+                          <CheckboxField
+                            name="procurement"
+                            label="Procurement process"
+                            options={procurementCheckboxOption}
+                          />
+                        </Col>
+                      </Row>
                       <Row className="mt-3">
                         <Col>
                           <Button

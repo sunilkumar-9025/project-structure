@@ -1,40 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Col, Container, Row, Button } from "reactstrap";
-// import PreviewCardHeader from '../../../Components/Common/PreviewCardHeader'
+import PreviewCardHeader from '../../../../Components/Common/PreviewCardHeader'
 
 const Review = () => {
   const navigate = useNavigate();
   const reviewData = [
-    "Formulation",
-    "Testing & Certification",
-    "Manufaturing",
-    "Packaging",
-    "Launch",
+    { label: "Formulation", path: "/formulation" },
+    { label: "Testing & Certification", path: "/testing" },
+    { label: "Manufaturing", path: "/manufacturing" },
+    { label: "Packaging", path: "/packaging" },
+    { label: "Launch", path: "/launch" },
   ];
-  const onclick = (element) => {
-    switch (element) {
-      case "Formulation":
-        navigate("/formulation");
-        break;
-      case "Testing & Certification":
-        navigate("/testing");
-        break;
-      case "Manufaturing":
-        navigate("/manufacturing");
-        break;
 
-      case "Packaging":
-        navigate("/packaging");
-        break;
-
-      case "Launch":
-        navigate("/launch");
-        break;
-      default:
-        break;
-    }
-  };
   const onLaunch = () => {
     navigate("/aknowledgement");
   };
@@ -44,17 +22,17 @@ const Review = () => {
         <Container fluid>
           <Row>
             <Col lg={12}>
-              {/* <PreviewCardHeader title="Review" /> */}
+              <PreviewCardHeader title="Review" />
               <div className="card-body">
                 {reviewData.map((element, index) => (
                   <Row className="mt-4 mb-2" key={index}>
                     <Col xxl={3} lg={3}>
-                      {element}
+                      {element.label}
                     </Col>
                     <Col xxl={1} lg={1}>
                       <i
                         className="las la-pencil-alt"
-                        onClick={() => onclick(element)}
+                        onClick={() => navigate(element.path)}
                         style={{ cursor: "pointer", fontSize: "20px" }}
                       ></i>
                     </Col>

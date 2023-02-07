@@ -12,6 +12,7 @@ import { formulationRadioOption } from "../../../../Components/constants/project
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import FileUpload from "../../../../Components/Common/FileUpload";
+import PreviewCardHeader from '../../../../Components/Common/PreviewCardHeader'
 
 const Formulation = () => {
   const history = useNavigate();
@@ -56,7 +57,8 @@ const Formulation = () => {
       <div className="page-content">
         <Container fluid>
           <Row>
-            <Col lg={4}>
+          <PreviewCardHeader title="Formulation" />
+            <Col lg={4} className='mt-3'>
               <Formik
                 initialValues={initialValues}
                 onSubmit={onSubmit}
@@ -91,7 +93,7 @@ const Formulation = () => {
                         <Col xxl={12} className="mb-3">
                           <RadioField
                             name="formulation"
-                            label="Formulation"
+                            label=""
                             options={formulationRadioOption}
                           />
                           <ErrorMessage

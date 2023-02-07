@@ -85,6 +85,10 @@ const QuantityOptions = [
   { label: "Vancouver", value: "Vancouver" },
 ];
 
+const procurementCheckboxOption = [
+  { label: "Bsaas procurement", value: "bsaas procurement" },
+  { label: "Send us the raw material", value: "send raw material" },
+];
 
 const PackagingRadioOption = [
   { label: "Add Packaging", value: "Add Packaging" },
@@ -137,6 +141,12 @@ const MaterialOptions = [
 ];
 
 
+
+const launchCheckboxOption = [
+  { label: "Launch exclusively at sublime life", value: "launch exclusively" },
+  { label: "Test at Sublime Life", value: "test at sublime" },
+];
+
 export {
   ProjectOptions,
   formulationRadioOption,
@@ -144,7 +154,9 @@ export {
   manufacturingRadioOption,
   FormulationOptions,
   QuantityOptions,
+  procurementCheckboxOption,
   PackagingRadioOption,
   ContainerOptions,
-  MaterialOptions
+  MaterialOptions,
+  launchCheckboxOption
 };

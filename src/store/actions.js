@@ -12,4 +12,5 @@ export * from "./projects/newProject/action";
 export * from "./projects/formulation/action";
 export * from "./projects/testing/action";
 export * from './projects/manufacturing/action';
-export * from './projects/packaging/action'
+export * from './projects/packaging/action';
+export * from './projects/launch/action'

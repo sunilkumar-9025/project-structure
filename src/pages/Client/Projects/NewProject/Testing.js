@@ -10,7 +10,7 @@ import { resetTestingFlag, testing } from "../../../../store/actions";
 import { testingCheckboxOption } from "../../../../Components/constants/projects";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import PreviewCardHeader from "../../../../Components/Common/PreviewCardHeader";
 
 const Testing = () => {
   const history = useNavigate();
@@ -49,7 +49,8 @@ const Testing = () => {
       <div className="page-content">
         <Container fluid>
           <Row>
-            <Col lg={4}>
+          <PreviewCardHeader title="Testing & Claims" />
+            <Col lg={4} className='mt-3'>
               <Formik
                 initialValues={initialValues}
                 onSubmit={onSubmit}
