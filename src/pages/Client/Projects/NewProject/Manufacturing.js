@@ -1,100 +1,161 @@
-import React, { useState } from 'react'
-import { Container, Row, Col, Label, Input, Button } from "reactstrap"
-import Select from "react-select";
-// import PreviewCardHeader from '../../../Components/Common/PreviewCardHeader'
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { Row, Col, Container, Button, Alert } from "reactstrap";
+import * as Yup from "yup";
+import ErrorText from "../../../../Components/Common/ErrorText";
+import { Formik, Form, ErrorMessage } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import RadioField from "../../../../Components/Common/RadioField";
+import {
+  resetManufacturingFlag,
+  manufacturing,
+} from "../../../../store/actions";
+import { FormulationOptions, manufacturingRadioOption, QuantityOptions } from "../../../../Components/constants/projects";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import SelectField from "../../../../Components/Common/SelectField";
 
 const Manufacturing = () => {
-  const navigate = useNavigate();
-  const SingleOptions = [
-    { value: 'Choices 1', label: 'Choices 1' },
-    { value: 'Choices 2', label: 'Choices 2' },
-    { value: 'Choices 3', label: 'Choices 3' },
-    { value: 'Choices 4', label: 'Choices 4' }
-  ];
-  const ManufacturingData = ['One time Project', 'Retainer'];
-  const [manufaturingPeriod, setManufacturingPeriod] = useState();
-  const [formulation, setFormulation] = useState();
-  const [quantity, setQuantity] = useState();
-  function handleSelectGroups(formulation) {
-    setFormulation(formulation);
-  }
-  function handleSelectGroups1(quantity) {
-    setQuantity(quantity);
-  }
-  const onSave = () => {
-  
-    let Data = { manufaturingPeriod: manufaturingPeriod, formulation: formulation, quantity: quantity };
-    console.log(Data)
-    navigate("/packaging")
-  }
+  const history = useNavigate();
+  const dispatch = useDispatch();
+
+  const initialValues = {
+    manufacturing: "",
+    formulation: "",
+    quantity: "",
+  };
+  const validationSchema = Yup.object({
+    manufacturing: Yup.string().required("Please Select Formulation"),
+    formulation: Yup.string().required("Please select formulation"),
+    quantity: Yup.string().required("Please select quantity"),
+  });
+  const onSubmit = (values) => {
+    dispatch(manufacturing(values));
+    setTimeout(() => history("/packaging"), 1000);
+  };
+
+  const { error, manufacturingError, success } = useSelector((state) => ({
+    manufacturingError: state.Manufacturing.manufacturingError,
+    success: state.Manufacturing.success,
+    error: state.Manufacturing.error,
+  }));
+
+  useEffect(() => {
+    if (success) {
+      console.log("sucess");
+      setTimeout(() => history("/packaging"), 3000);
+    }
+
+    setTimeout(() => {
+      dispatch(resetManufacturingFlag());
+    }, 3000);
+  }, [dispatch, success, error, history]);
+
   return (
     <React.Fragment>
       <div className="page-content">
         <Container fluid>
           <Row>
-            <Col lg={12}>
-              {/* <PreviewCardHeader title="Manufacturing" /> */}
-              <div className="card-body">
-                <Row className='mt-5'>
-                  {ManufacturingData.map((element, index) => <Col xxl={2} key={index}>
-                    <div className="form-check form-radio-primary mb-3">
-                      <Input className="form-check-input" type="radio" name="manufacturing" id={element} value={element} onChange={(e) => {setManufacturingPeriod(e.target.value)} }/>
-                      <Label className="form-check-label" htmlFor={element}>
-                        {element}
-                      </Label>
-                    </div>
-                  </Col>)}
-                </Row>
-                <Row className='mt-3'>
-                  <Col xxl={3} lg={3}>
-                    <div className="form-group">
-                      <Label htmlFor="ProjectType" className="form-label ">Formulation</Label>
-                      <Select
-                        searchable
-                        onChange={(e) => 
-                          setFormulation(e.label)
-                        }
-                        options={SingleOptions}
-                        
-                      />
-                    </div>
-                  </Col>
-                </Row>
-                <Row className='mt-3'>
-                  <Col xxl={3} lg={3}>
-                    <div className="form-group">
-                      <Label htmlFor="ProjectType" className="form-label ">Quantity</Label>
-                      <Select
-                        searchable
-                        onChange={(e) => {
-                          setQuantity(e.label)
-                        }}
-                        options={SingleOptions}
-                      
-                      />
-                    </div>
-                  </Col>
-                </Row>
-                <Row className='mt-5'>
-                  <Col xxl={3} lg={3}>
-                    <Button color="secondary" style={{ width: "100%" }} onClick={onSave}> Save </Button>
-                  </Col>
-                </Row>
-                <Row className='mt-3'>
-                  <Col xxl={3} lg={3}>
-                    <Button color="light" style={{ width: "100%" }}> Save  as Drafts </Button>
-                  </Col>
-
-                </Row>
-
-              </div>
+            <Col lg={4}>
+              <Formik
+                initialValues={initialValues}
+                onSubmit={onSubmit}
+                validationSchema={validationSchema}
+                validateOnBlur
+                validateOnChange
+              >
+                {(formik) => {
+                  return (
+                    <Form>
+                      {/* {success && success ? (
+                      <>
+                        {toast("Your Redirect To Login Page...", {
+                          position: "top-right",
+                          hideProgressBar: false,
+                          className: "bg-success text-white",
+                          progress: undefined,
+                          toastId: "",
+                        })}
+                        <ToastContainer autoClose={2000} limit={1} />
+                        <Alert color="success">
+                          Project created successfully
+                        </Alert>
+                      </>
+                    ) : null}
+                    {error && error ? (
+                      <Alert color="danger">
+                        <div>Project with that name already exist</div>
+                      </Alert>
+                    ) : null} */}
+                      <Row>
+                        <Col xxl={12} className="mb-3">
+                          <RadioField
+                            name="manufacturing"
+                            label="Manufacturing"
+                            options={manufacturingRadioOption}
+                          />
+                          <ErrorMessage
+                            name="manufacturing"
+                            component={ErrorText}
+                          />
+                        </Col>
+                        <div className="mb-3">
+                          <SelectField
+                            name="formulation"
+                            label="Formulation"
+                            options={FormulationOptions}
+                          />
+                          <ErrorMessage
+                            name="formulation"
+                            component={ErrorText}
+                          />
+                        </div>
+                        <div className="mb-3">
+                          <SelectField
+                            name="quantity"
+                            label="Quantity"
+                            options={QuantityOptions}
+                          />
+                          <ErrorMessage
+                            name="quantity"
+                            component={ErrorText}
+                          />
+                        </div>
+                      </Row>
+                      <Row></Row>
+                      <Row className="mt-3">
+                        <Col>
+                          <Button
+                            color="secondary"
+                            style={{ width: "100%" }}
+                            type={"submit"}
+                            disabled={!(formik.dirty && formik.isValid)}
+                          >
+                            Save
+                          </Button>
+                        </Col>
+                      </Row>
+                      <Row className="mt-3">
+                        <Col>
+                          <Button
+                            color="light"
+                            style={{ width: "100%" }}
+                            disabled
+                          >
+                            Save as Drafts
+                          </Button>
+                        </Col>
+                      </Row>
+                    </Form>
+                  );
+                }}
+              </Formik>
             </Col>
           </Row>
         </Container>
       </div>
     </React.Fragment>
-  )
-}
+  );
+};
 
-export default Manufacturing
+export default Manufacturing;

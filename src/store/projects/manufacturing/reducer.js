@@ -1,47 +1,47 @@
 import {
-    FORMULATION,
-    FORMULATION_FAILED,
-    FORMULATION_SUCCESSFUL,
-    RESET_FORMULATION_FLAG,
+    MANUFACTURING,
+    MANUFACTURING_FAILED,
+    MANUFACTURING_SUCCESSFUL,
+    RESET_MANUFACTURING_FLAG,
   } from "./actionType";
   
   const initialState = {
-    formulationError: null,
+    manufacturingError: null,
     message: null,
     loading: false,
-    formulation: null,
+    manufacturing: null,
     success: false,
     error: false,
   };
   
   const Project = (state = initialState, action) => {
     switch (action.type) {
-      case FORMULATION:
+      case MANUFACTURING:
         state = {
           ...state,
           loading: true,
-          formulationError: null,
+          manufacturingError: null,
         };
         break;
-      case FORMULATION_SUCCESSFUL:
+      case MANUFACTURING_SUCCESSFUL:
         state = {
           ...state,
           loading: false,
-          formulation: action.payload,
+          manufacturing: action.payload,
           success: true,
-          formulationError: null,
+          manufacturingError: null,
         };
         break;
-      case FORMULATION_FAILED:
+      case MANUFACTURING_FAILED:
         state = {
           ...state,
-          formulation: null,
+          manufacturing: null,
           loading: false,
-          formulationError: action.payload,
+          manufacturingError: action.payload,
           error: true,
         };
         break;
-      case RESET_FORMULATION_FLAG:
+      case RESET_MANUFACTURING_FLAG:
         state = {
           ...state,
           success: false,

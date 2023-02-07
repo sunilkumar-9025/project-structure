@@ -11,6 +11,10 @@ import ProfileSaga from "./auth/profile/saga";
 
 //project
 import ProjectSaga from "./projects/newProject/saga";
+import FormulationSaga from "./projects/formulation/saga";
+import TestingSaga from "./projects/testing/saga";
+import ManufacturingSaga from "./projects/manufacturing/saga";
+import PackagingSaga from "./projects/packaging/saga";
 
 export default function* rootSaga() {
   yield all([
@@ -20,5 +24,9 @@ export default function* rootSaga() {
     fork(ProfileSaga),
     fork(LayoutSaga),
     fork(ProjectSaga),
+    fork(FormulationSaga),
+    fork(TestingSaga),
+    fork(ManufacturingSaga),
+    fork(PackagingSaga),
   ]);
 }

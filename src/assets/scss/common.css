@@ -3,3 +3,7 @@
     font-size: 0.875em;
     margin-top: 0.125em;
 }
+
+.dropzone{
+    min-height: 165px !important;
+}

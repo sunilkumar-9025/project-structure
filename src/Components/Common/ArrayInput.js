@@ -1,6 +1,7 @@
-import { Field, FieldArray } from "formik";
+import { ErrorMessage, Field, FieldArray } from "formik";
 import React from "react";
 import { Col, Input, Label, Row } from "reactstrap";
+import ErrorText from "./ErrorText";
 
 const ArrayInput = (props) => {
   const { name, label, ...rest } = props;
@@ -10,16 +11,14 @@ const ArrayInput = (props) => {
         const { push, remove, form } = fieldAreaProps;
         const { values } = form;
         const data = values[name];
-        console.log(data);
         return (
           <div>
             <Label>{label}</Label>
             {data.map((_, index) => (
               <Row key={index}>
                 <Col xxl={12}>
-                  <Field name={`data[${index}]`}>
+                  <Field name={`${name}[${index}]`}>
                     {({ field }) => {
-                      console.log(field);
                       return (
                         <div className="input-group mb-2">
                           <Input
@@ -43,6 +42,7 @@ const ArrayInput = (props) => {
                 </Col>
               </Row>
             ))}
+            <ErrorMessage name="clientPOC" component={ErrorText} />
             {data.length < 3 && (
               <i
                 className="mdi mdi-account-multiple-plus-outline"

@@ -1,74 +1,128 @@
-import React from 'react'
-import { Container, Row, Col, Label, Input,Button } from 'reactstrap'
-// import PreviewCardHeader from '../../../Components/Common/PreviewCardHeader';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { Row, Col, Container, Button, Alert } from "reactstrap";
+import * as Yup from "yup";
+import ErrorText from "../../../../Components/Common/ErrorText";
+import { Formik, Form, ErrorMessage } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import CheckboxField from "../../../../Components/Common/CheckboxField";
+import { resetTestingFlag, testing } from "../../../../store/actions";
+import { testingCheckboxOption } from "../../../../Components/constants/projects";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const Testing = () => {
-  const navigate =useNavigate();
-  const TestingFields = ['Certified Vegan', 'Safe for Children', 'Organic Beauty Certification', 'Safe for preganancy Women', 'Talc free'];
-  const [testingData,setTestingData]= useState([]);
-  const onChecked =(e)=>{
-      let data = e.target.value;
-      if(testingData.includes(data)){
-      let unchecked =testingData.filter((element)=>{
-        return element !== data;
-       });
-       setTestingData(unchecked);
-      }
-      else{
-        setTestingData([...testingData,data]);
-      }
-   };
-   const onSave =()=>{
-    console.log(testingData,"hello");
-    navigate('/manufacturing');
-   }
-   
-     
-  
+  const history = useNavigate();
+  const dispatch = useDispatch();
+
+  const initialValues = {
+    testing: [],
+  };
+  const validationSchema = Yup.object({
+    testing: Yup.array().min(1, "Please select atleast one of options"),
+  });
+  const onSubmit = (values) => {
+    dispatch(testing(values));
+    setTimeout(() => history("/manufacturing"), 1000);
+  };
+
+  const { error, testingError, success } = useSelector((state) => ({
+    testingError: state.Testing.testingError,
+    success: state.Testing.success,
+    error: state.Testing.error,
+  }));
+
+  useEffect(() => {
+    if (success) {
+      console.log("sucess");
+      setTimeout(() => history("/manufacturing"), 3000);
+    }
+
+    setTimeout(() => {
+      dispatch(resetTestingFlag());
+    }, 3000);
+  }, [dispatch, success, error, history]);
+
   return (
     <React.Fragment>
       <div className="page-content">
         <Container fluid>
           <Row>
-            <Col lg={12}>
-              {/* <PreviewCardHeader title="Testing & Claims" /> */}
-              <div className="card-body">
-                <Row>
-                  <Col  xxl={3}>
-                    <div className='title mt-4'>
-                      Based on your products Labs suggests this Certification  to claim.
-                    
-                    </div>
-                  </Col>
-                </Row>
-                {TestingFields.map((element, index) => (<Row key={index}><Col xxl={3}>
-                  <div className="form-check form-check-outline form-check-info  mt-4">
-                    <Input className="form-check-input" type="checkbox" id={element} value={element} onChange={(e)=>(onChecked(e))}/>
-                    <Label className="form-check-label" for={element}>
-                     {element}
-                    </Label>
-                  </div>
-
-                </Col> </Row>))}
-                <Row className='mt-5'>
-                  <Col xxl={3} lg={3}>
-                    <Button color="secondary" style={{ width: "100%" }} onClick={onSave}> Save </Button>
-                  </Col>
-                </Row>
-                <Row className='mt-3'>
-                  <Col xxl={3} lg={3}>
-                    <Button color="light" style={{ width: "100%" }}> Save  as Drafts </Button>
-                  </Col>
-                </Row>
-              </div>
+            <Col lg={4}>
+              <Formik
+                initialValues={initialValues}
+                onSubmit={onSubmit}
+                validationSchema={validationSchema}
+                validateOnBlur
+                validateOnChange
+              >
+                {(formik) => {
+                  return (
+                    <Form>
+                      {/* {success && success ? (
+                      <>
+                        {toast("Your Redirect To Login Page...", {
+                          position: "top-right",
+                          hideProgressBar: false,
+                          className: "bg-success text-white",
+                          progress: undefined,
+                          toastId: "",
+                        })}
+                        <ToastContainer autoClose={2000} limit={1} />
+                        <Alert color="success">
+                          Project created successfully
+                        </Alert>
+                      </>
+                    ) : null}
+                    {error && error ? (
+                      <Alert color="danger">
+                        <div>Project with that name already exist</div>
+                      </Alert>
+                    ) : null} */}
+                      <Row>
+                        <Col xxl={12} className="mb-3">
+                          <CheckboxField
+                            name="testing"
+                            label="Bases on your product Labs suggests these certificate to claim"
+                            options={testingCheckboxOption}
+                          />
+                          <ErrorMessage name="testing" component={ErrorText} />
+                        </Col>
+                      </Row>
+                      <Row className="mt-3">
+                        <Col>
+                          <Button
+                            color="secondary"
+                            style={{ width: "100%" }}
+                            type={"submit"}
+                            disabled={!(formik.dirty && formik.isValid)}
+                          >
+                            Save
+                          </Button>
+                        </Col>
+                      </Row>
+                      <Row className="mt-3">
+                        <Col>
+                          <Button
+                            color="light"
+                            style={{ width: "100%" }}
+                            disabled
+                          >
+                            Save as Drafts
+                          </Button>
+                        </Col>
+                      </Row>
+                    </Form>
+                  );
+                }}
+              </Formik>
             </Col>
           </Row>
         </Container>
       </div>
     </React.Fragment>
-  )
-}
+  );
+};
 
-export default Testing
+export default Testing;

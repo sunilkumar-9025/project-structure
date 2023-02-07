@@ -1,47 +1,47 @@
 import {
-    FORMULATION,
-    FORMULATION_FAILED,
-    FORMULATION_SUCCESSFUL,
-    RESET_FORMULATION_FLAG,
+    TESTING,
+    TESTING_FAILED,
+    TESTING_SUCCESSFUL,
+    RESET_TESTING_FLAG,
   } from "./actionType";
   
   const initialState = {
-    formulationError: null,
+    testinError: null,
     message: null,
     loading: false,
-    formulation: null,
+    testing: null,
     success: false,
     error: false,
   };
   
   const Project = (state = initialState, action) => {
     switch (action.type) {
-      case FORMULATION:
+      case TESTING:
         state = {
           ...state,
           loading: true,
-          formulationError: null,
+          testingError: null,
         };
         break;
-      case FORMULATION_SUCCESSFUL:
+      case TESTING_SUCCESSFUL:
         state = {
           ...state,
           loading: false,
-          formulation: action.payload,
+          testing: action.payload,
           success: true,
-          formulationError: null,
+          testingError: null,
         };
         break;
-      case FORMULATION_FAILED:
+      case TESTING_FAILED:
         state = {
           ...state,
-          formulation: null,
+          testing: null,
           loading: false,
-          formulationError: action.payload,
+          testingError: action.payload,
           error: true,
         };
         break;
-      case RESET_FORMULATION_FLAG:
+      case RESET_TESTING_FLAG:
         state = {
           ...state,
           success: false,

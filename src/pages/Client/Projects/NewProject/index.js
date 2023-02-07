@@ -10,7 +10,6 @@ import InputField from "../../../../Components/Common/InputField";
 import SelectField from "../../../../Components/Common/SelectField";
 
 import { newProject, resetNewProjectFlag } from "../../../../store/actions";
-// import PreviewCardHeader from "../../../Components/Common/PreviewCardHeader";
 import { ProjectOptions } from "../../../../Components/constants/projects";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -23,19 +22,21 @@ const Index = () => {
   const initialValues = {
     projectName: "",
     projectType: "",
-    clientPOC: [''],
+    clientPOC: [""],
   };
   const validationSchema = Yup.object({
     projectName: Yup.string().required("Please Enter Your Project Name"),
     projectType: Yup.string().required("Please Enter Your Project Type"),
-    // clientPOC: Yup.array()
-    //   .min(1)
-    //   .required("Plese Enter Email")
-    //   .email("Plse Enter Valid Email"),
+    clientPOC: Yup.array().of(
+      Yup.string()
+        .email("Please Enter valid Email")
+        .required("Please Enter Email Address")
+    ),
   });
+
   const onSubmit = (values) => {
-    console.log(values)
     dispatch(newProject(values));
+    setTimeout(() => history("/formulation"), 1000);
   };
 
   const { error, newProjectError, success } = useSelector((state) => ({
@@ -46,6 +47,7 @@ const Index = () => {
 
   useEffect(() => {
     if (success) {
+      console.log("sucess");
       setTimeout(() => history("formulation"), 3000);
     }
 
@@ -69,7 +71,7 @@ const Index = () => {
               >
                 {(formik) => (
                   <Form>
-                    {success && success ? (
+                    {/* {success && success ? (
                       <>
                         {toast("Your Redirect To Login Page...", {
                           position: "top-right",
@@ -88,7 +90,7 @@ const Index = () => {
                       <Alert color="danger">
                         <div>Project with that name already exist</div>
                       </Alert>
-                    ) : null}
+                    ) : null} */}
                     <div className="mb-3">
                       <InputField name="projectName" label="Project Name" />
                       <ErrorMessage name="projectName" component={ErrorText} />
@@ -108,7 +110,12 @@ const Index = () => {
                       ></ArrayInput>
                     </div>
 
-                    <Button type="submit" color="primary">
+                    <Button
+                      type="submit"
+                      color="primary"
+                      className="w-100"
+                      disabled={!(formik.dirty && formik.isValid)}
+                    >
                       save
                     </Button>
                   </Form>

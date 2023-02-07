@@ -1,6 +1,6 @@
 import { Field } from "formik";
 import React from "react";
-import {  FormGroup, Input, Label } from "reactstrap";
+import { FormGroup, Input, Label } from "reactstrap";
 
 const InputField = (props) => {
   const { label, name, ...rest } = props;

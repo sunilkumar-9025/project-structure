@@ -19,7 +19,6 @@ import Manufacturing from "../pages/Client/Projects/NewProject/Manufacturing.js"
 import Packaging from "../pages/Client/Projects/NewProject/Packaging";
 import Launch from "../pages/Client/Projects/NewProject/Launch";
 import Review from "../pages/Client/Projects/NewProject/Review";
-import Test from "../pages/Client/Test";
 
 const authProtectedRoutes = [
   { path: "/dashboard", component: <Dashboard /> },
@@ -37,7 +36,6 @@ const authProtectedRoutes = [
   { path: "/packaging", component: <Packaging /> },
   { path: "/launch", component: <Launch /> },
   { path: "/review", component: <Review /> },
-  { path: "/test", component: <Test /> },
   {
     path: "/",
     exact: true,

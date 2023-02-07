@@ -11,6 +11,10 @@ import Profile from "./auth/profile/reducer";
 
 //projects
 import NewProject from "./projects/newProject/reducer";
+import Formulation from "./projects/formulation/reducer";
+import Testing from "./projects/testing/reducer";
+import Manufacturing from "./projects/manufacturing/reducer";
+import Packaging from "./projects/packaging/reducer";
 
 const rootReducer = combineReducers({
   Layout,
@@ -19,6 +23,10 @@ const rootReducer = combineReducers({
   ForgetPassword,
   Profile,
   NewProject,
+  Formulation,
+  Testing,
+  Manufacturing,
+  Packaging
 });
 
 export default rootReducer;

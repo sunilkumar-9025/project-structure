@@ -4,4 +4,5 @@ const ErrorText = ({ children }) => {
   return <div className="formikerror">{children}</div>;
 };
 
-export default ErrorText;
+
+export default ErrorText

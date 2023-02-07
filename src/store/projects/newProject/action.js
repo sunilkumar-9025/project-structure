@@ -6,6 +6,7 @@ import {
 } from "./actionType";
 
 export const newProject = (project) => {
+  console.log({ project });
   return {
     type: NEW_PROJECT,
     payload: { project },
