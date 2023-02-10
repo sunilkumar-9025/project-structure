@@ -1,9 +1,18 @@
-.formikerror{
-    color:red;
-    font-size: 0.875em;
-    margin-top: 0.125em;
+.formikerror {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px!important;
 }
 
-.dropzone{
-    min-height: 165px !important;
+.form-label {
+  font-size: 16px !important;
+}
+
+.progress-nav .nav .nav-link {
+  width: 10rem !important;
+}
+
+.invalid-feedback{
+  font-size: 14px !important;
+  margin-top: 10px!important;
 }
