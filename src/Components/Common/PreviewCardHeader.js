@@ -6,7 +6,7 @@ const PreviewCardHeader = ({ title }) => {
     <React.Fragment>
       <CardHeader className="align-items-center d-flex">
         <h4
-          className="card-title mb-3 flex-grow-1"
+          className="card-title mb-2 flex-grow-1"
           style={{ color: "#865ce2", fontSize:'20px' }}
         >
           {title}

@@ -140,11 +140,17 @@ const MaterialOptions = [
   { label: "Vancouver", value: "Vancouver" },
 ];
 
-
-
 const launchCheckboxOption = [
   { label: "Launch exclusively at sublime life", value: "launch exclusively" },
   { label: "Test at Sublime Life", value: "test at sublime" },
+];
+
+const reviewData = [
+  { label: "Formulation", path: "/formulation" },
+  { label: "Testing & Certification", path: "/testing" },
+  { label: "Manufaturing", path: "/manufacturing" },
+  { label: "Packaging", path: "/packaging" },
+  { label: "Launch", path: "/launch" },
 ];
 
 export {
@@ -158,5 +164,6 @@ export {
   PackagingRadioOption,
   ContainerOptions,
   MaterialOptions,
-  launchCheckboxOption
+  launchCheckboxOption,
+  reviewData
 };
