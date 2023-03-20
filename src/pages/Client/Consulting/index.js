@@ -38,7 +38,6 @@ import { Link } from "react-router-dom";
 import PreviewCardHeader from "../../../Components/Common/PreviewCardHeader";
 import Select from "react-select";
 const Index = () => {
-  const [data, setData] = useState([]);
   const [activeTab, setactiveTab] = useState(1);
   const [progressbarvalue, setprogressbarvalue] = useState(0);
   const [passedSteps, setPassedSteps] = useState([1]);
@@ -84,7 +83,7 @@ const Index = () => {
     enableReinitialize: true,
     initialValues: {
       formulation: "",
-      formulationFile: [],
+      formulationFile: null,
       formulationDescription: "",
       testing: [],
       manufacturing: "",
@@ -100,7 +99,11 @@ const Index = () => {
     },
     validationSchema: Yup.object({
       formulation: Yup.string().required("Please Select Formulation"),
-      // formulationFile: Yup.array().min(1, "Please Upload Formulation"),
+      // formulationFile: Yup.array().of(
+      //   Yup.object({
+      //     path: Yup.string().required("Please Upload Formulation"),
+      //   })
+      // ),
       formulationDescription: Yup.string().required(
         "Please Enter  Formulation Description"
       ),
@@ -116,7 +119,7 @@ const Index = () => {
         "Please Enter Design Description"
       ),
       launch: Yup.array().min(1, "Please Select Launching Options"),
-      // design:
+      // design: Yup.array().min(1, "Please Upload Formulation"),
     }),
     onSubmit: (values) => {
       console.log(values);
@@ -329,13 +332,11 @@ const Index = () => {
                                 <Dropzone
                                   onDrop={(acceptedFiles) => {
                                     handleAcceptedFiles(acceptedFiles);
-                                  }}
-                                  onChange={(acceptedFiles) =>
                                     formik.setFieldValue(
-                                      formik.values.formulationFile,
+                                      "formultionFile",
                                       acceptedFiles
-                                    )
-                                  }
+                                    );
+                                  }}
                                   onBlur={formik.handleBlur}
                                   invalid={
                                     formik.touched.formulationFile &&
@@ -375,7 +376,7 @@ const Index = () => {
                                 <Input
                                   type="textarea"
                                   className="form-control"
-                                  name="formulationDescription"
+                                  name="  e.preventDefault();"
                                   id="formulationDescription"
                                   onChange={formik.handleChange}
                                   onBlur={formik.handleBlur}
@@ -785,13 +786,11 @@ const Index = () => {
                                 <Dropzone
                                   onDrop={(acceptedFiles) => {
                                     handleAcceptedFiles(acceptedFiles);
-                                  }}
-                                  onChange={(acceptedFiles) =>
                                     formik.setFieldValue(
-                                      formik.values.formulationFile,
+                                      "design",
                                       acceptedFiles
-                                    )
-                                  }
+                                    );
+                                  }}
                                   onBlur={formik.handleBlur}
                                   invalid={
                                     formik.touched.formulationFile &&
@@ -816,10 +815,10 @@ const Index = () => {
                                     </div>
                                   )}
                                 </Dropzone>
-                                {formik.touched.formulationFile &&
-                                formik.errors.formulationFile ? (
+                                {formik.touched.design &&
+                                formik.errors.design ? (
                                   <FormFeedback type="invalid">
-                                    {formik.errors.formulationFile}
+                                    {formik.errors.design}
                                   </FormFeedback>
                                 ) : null}
                               </Col>
